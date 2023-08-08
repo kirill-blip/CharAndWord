@@ -32,16 +32,25 @@
 
     function onResize() {
       console.log('In resize');
+      
+      vkBridge.send('VKWebAppResizeWindow',{
+        width: 1000
+      })
+      .then((data) => { 
+          let w = data.width;
+          let h = data.height;
+          // let w = Math.floor(h * 9 / 16);
+    
+          console.log('h:' + h);
+          console.log('w:' + w);
+    
+          mainElement.style.height = h + 'px';
+          mainElement.style.width = w + 'px';
+      }).catch((error) => {
+        // Ошибка
+        console.log(error);
+      });
 
-      let h = window.innerHeight;
-      let w = window.innerWidth;
-      // let w = Math.floor(h * 9 / 16);
-
-      console.log('h:' + h);
-      console.log('w:' + w);
-
-      mainElement.style.height = h + 'px';
-      mainElement.style.width = w + 'px';
     }
   </script>
   <script>
