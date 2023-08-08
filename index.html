@@ -40,21 +40,8 @@
       console.log('h:' + h);
       console.log('w:' + w);
 
-      let isMobile = false;
-
-      try {
-        isMobile = window.ysdk.deviceInfo.isMobile();
-      }
-      catch {
-        console.log('in catch');
-      }
-
-      console.log('is mobile: ' + isMobile);
-
       mainElement.style.height = h + 'px';
-      if (!isMobile) {
-        mainElement.style.width = w + 'px';
-      }
+      mainElement.style.width = w + 'px';
     }
   </script>
   <script>
