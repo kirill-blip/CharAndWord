@@ -27,7 +27,7 @@
     vkBridge.send("VKWebAppInit", {});
 
     // window.addEventListener("load", onResize);
-    window.addEventListener("resize", onResize);
+    // window.addEventListener("resize", onResize);
     // const mainElement = document.getElementById("unity-container");
 
     function onResize() {
@@ -122,8 +122,8 @@
     } else {
       // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-      canvas.style.width = "auto";
-      canvas.style.height = "auto";
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
     }
 
     loadingBar.style.display = "block";
