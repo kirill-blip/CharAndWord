@@ -12,7 +12,7 @@
 
 <body>
   <div id="unity-container" class="unity-desktop"
-    style="background-color: blue;">
+    style="background-color: blue; width: auto; height: auto;">
     <canvas id="unity-canvas"
       style="background-color: rgb(44, 24, 24); position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%;"></canvas>
     <div id="unity-loading-bar">
@@ -28,7 +28,7 @@
 
     // window.addEventListener("load", onResize);
     window.addEventListener("resize", onResize);
-    const mainElement = document.getElementById("unity-container");
+    // const mainElement = document.getElementById("unity-container");
 
     function onResize() {
       console.log('In resize');
@@ -122,8 +122,8 @@
     } else {
       // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-      // canvas.style.width = "500px";
-      // canvas.style.height = "1000px";
+      canvas.style.width = "auto";
+      canvas.style.height = "auto";
     }
 
     loadingBar.style.display = "block";
