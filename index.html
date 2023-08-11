@@ -26,46 +26,31 @@
   <script>
     vkBridge.send("VKWebAppInit", {});
 
-    vkBridge.send('VKWebAppShowBannerAd', {
-      banner_location: 'bottom',
-      layout_type: 'resize'
-    }).then((data) => { 
-      if (data.result) {
-        // Баннерная реклама отобразилась
-      }
-    }).catch((error) => {
-        // Ошибка
-        console.log(error);
-    });
-
     // window.addEventListener("load", onResize);
     // window.addEventListener("resize", onResize);
-    const mainElement = document.getElementById("unity-container");
+    // const mainElement = document.getElementById("unity-container");
 
     function onResize() {
       console.log('In resize');
+      
+      vkBridge.send('VKWebAppResizeWindow',{
+        width: 1000
+      })
+      .then((data) => { 
+          let w = data.width;
+          let h = data.height;
+          // let w = Math.floor(h * 9 / 16);
+    
+          console.log('h:' + h);
+          console.log('w:' + w);
+    
+          mainElement.style.height = h + 'px';
+          mainElement.style.width = w + 'px';
+      }).catch((error) => {
+        // Ошибка
+        console.log(error);
+      });
 
-      let h = window.innerHeight;
-      let w = Math.floor(h * 9 / 16);
-
-      console.log('h:' + h);
-      console.log('w:' + w);
-
-      let isMobile = false;
-
-      try {
-        isMobile = window.ysdk.deviceInfo.isMobile();
-      }
-      catch {
-        console.log('in catch');
-      }
-
-      console.log('is mobile: ' + isMobile);
-
-      mainElement.style.height = h + 'px';
-      if (!isMobile) {
-        mainElement.style.width = w + 'px';
-      }
     }
   </script>
   <script>
@@ -137,8 +122,8 @@
     } else {
       // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-      // canvas.style.width = "500px";
-      // canvas.style.height = "1000px";
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
     }
 
     loadingBar.style.display = "block";
