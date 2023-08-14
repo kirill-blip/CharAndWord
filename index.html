@@ -26,20 +26,6 @@
   <script>
     vkBridge.send("VKWebAppInit", {});
 
-    vkBridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial'});
-
-    vkBridge.send('VKWebAppShowBannerAd', {
-      banner_location: 'bottom',
-      layout_type: 'resize'
-    }).then((data) => { 
-      if (data.result) {
-        // Баннерная реклама отобразилась
-      }
-    }).catch((error) => {
-        // Ошибка
-        console.log(error);
-    });
-
     // window.addEventListener("load", onResize);
     // window.addEventListener("resize", onResize);
     const mainElement = document.getElementById("unity-container");
