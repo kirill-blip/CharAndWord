@@ -28,16 +28,43 @@
 
     vkBridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial'});
 
-    vkBridge.send('VKWebAppShowBannerAd', {
-      banner_location: 'bottom',
-      layout_type: 'resize'
-    }).then((data) => { 
-      if (data.result) {
-        // Баннерная реклама отобразилась
+    showBannerAd();
+
+    function showBannerAd() {
+      vkBridge.send('VKWebAppShowBannerAd', {
+        banner_location: 'bottom',
+        layout_type: 'resize',
+        can_close: false
+      }).then((data) => { 
+          if (data.result) {
+            // Баннерная реклама отобразилась
       }
-    }).catch((error) => {
-        // Ошибка
-        console.log(error);
+      }).catch((error) => {
+          // Ошибка
+          console.log(error);
+      });
+    }
+
+    vkBridge.subscribe(event => {
+      if (!event.detail) {
+        return;
+      }
+
+      switch(event.detail.type) {
+        case 'VKWebAppShowBannerAdResult':
+          if (event.detail.data.result) {
+            // Обработка события в случае успеха
+            console.log(event.detail.data.result);
+          } else {
+          // Ошибка
+          }
+          break;
+        case 'VKWebAppShowBannerAdFailed':
+          // Обработка события в случае ошибки
+          console.log(event.detail.data.error_type, event.detail.data.error_data);      
+          showBannerAd();
+          break;
+    }
     });
 
     // window.addEventListener("load", onResize);
