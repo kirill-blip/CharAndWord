@@ -26,18 +26,34 @@
   <script>
     vkBridge.send("VKWebAppInit", {});
 
+    vkBridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial'});
+
     vkBridge.send('VKWebAppShowBannerAd', {
       banner_location: 'bottom',
-      layout_type: 'resize',
-      can_close: false
+      layout_type: 'resize'
     }).then((data) => { 
       if (data.result) {
         // Баннерная реклама отобразилась
       }
     }).catch((error) => {
-      // Ошибка
-      console.log(error);
+        // Ошибка
+        console.log(error);
     });
+
+    vkBridge.subscribe((e) => {
+      if (e.detail.type === 'VKWebAppViewHide') {
+        // Действия при переключении из игры или мини приложения
+        myUnityInstance.SendMessage('Game', 'StopAllMusic');
+      }
+    });
+
+    vkBridge.subscribe((e) => {
+      if (e.detail.type === 'VKWebAppViewRestore') {
+        // Действия при восстановлении экрана игры или мини приложения
+        myUnityInstance.SendMessage('Game', 'StartAllMusic');
+      }
+    });
+
 
     // window.addEventListener("load", onResize);
     // window.addEventListener("resize", onResize);
@@ -144,6 +160,8 @@
 
     loadingBar.style.display = "block";
 
+    var myUnityInstance = null;
+
     var script = document.createElement("script");
     script.src = loaderUrl;
     script.onload = () => {
@@ -151,6 +169,7 @@
         progressBarFull.style.width = 100 * progress + "%";
       }).then((unityInstance) => {
         loadingBar.style.display = "none";
+        myUnityInstance = unityInstance;
       }).catch((message) => {
         alert(message);
       });
