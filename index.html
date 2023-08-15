@@ -43,16 +43,17 @@
     vkBridge.subscribe((e) => {
       if (e.detail.type === 'VKWebAppViewHide') {
         // Действия при переключении из игры или мини приложения
-        myUnityInstance.SendMessage('Game', 'StopAllMusic');
+        myUnityInstance.Quit();
+        unityInstance = nul;
       }
     });
 
-    vkBridge.subscribe((e) => {
-      if (e.detail.type === 'VKWebAppViewRestore') {
-        // Действия при восстановлении экрана игры или мини приложения
-        myUnityInstance.SendMessage('Game', 'StartAllMusic');
-      }
-    });
+    // vkBridge.subscribe((e) => {
+    //   if (e.detail.type === 'VKWebAppViewRestore') {
+    //     // Действия при восстановлении экрана игры или мини приложения
+    //     myUnityInstance.SendMessage('Game', 'StartAllMusic');
+    //   }
+    // });
 
 
     // window.addEventListener("load", onResize);
