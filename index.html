@@ -44,6 +44,7 @@
       if (e.detail.type === 'VKWebAppViewHide') {
         // Действия при переключении из игры или мини приложения
         myUnityInstance.SendMessage('Game', 'StopAllMusic');
+        myUnityInstance.SendMessage('Canvas', 'StartAllMusic');
       }
     });
 
@@ -51,6 +52,7 @@
       if (e.detail.type === 'VKWebAppViewRestore') {
         // Действия при восстановлении экрана игры или мини приложения
         myUnityInstance.SendMessage('Game', 'StartAllMusic');
+        myUnityInstance.SendMessage('Canvas', 'StartAllMusic');
       }
     });
 
